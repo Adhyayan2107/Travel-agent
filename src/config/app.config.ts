@@ -10,10 +10,11 @@ export const AppConfigSchema = z.object({
   REDIS_PORT: z.coerce.number().default(6379),
   QDRANT_URL: z.string().default("http://localhost:6333"),
   LLM_DEFAULT_PROVIDER: z
-    .enum(["openai", "google", "openrouter"])
-    .default("openai"),
+    .enum(["openai", "google", "openrouter", "groq"])
+    .default("groq"),
+  GROQ_API_KEY: z.string().optional(),
   RTK_BIN_PATH: z.string().default("/usr/local/bin/rtk"),
-  RTK_ENABLED: z.coerce.boolean().default(true),
+  RTK_ENABLED: z.coerce.boolean().default(false),
 });
 
 export type AppConfig = z.infer<typeof AppConfigSchema>;
