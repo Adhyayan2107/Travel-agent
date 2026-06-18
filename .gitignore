@@ -1,3 +1,43 @@
-node_modules
+# Dependency directories
+node_modules/
+
+# Build artifacts
+dist/
+*.tsbuildinfo
+
+# Environment variables
 .env
-dist
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Prisma
+/prisma/*.db
+/prisma/*.db-journal
+
+# Tests
+/test/results/
+coverage/
+
+# Temporary files
+tmp/
+temp/
