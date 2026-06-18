@@ -1,4 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Module, Global } from "@nestjs/common";
+import { QdrantService } from "./qdrant.service";
+import { EmbeddingsService } from "./embeddings.service";
 
-@Module({})
+@Global()
+@Module({
+  providers: [QdrantService, EmbeddingsService],
+  exports: [QdrantService, EmbeddingsService],
+})
 export class MemoryModule {}
