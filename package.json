@@ -1,0 +1,64 @@
+{
+  "name": "travel-agent",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/ashu273k/Travel-agent#readme",
+  "bugs": {
+    "url": "https://github.com/ashu273k/Travel-agent/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashu273k/Travel-agent.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/src/main",
+    "start:dev": "ts-node -r tsconfig-paths/register src/main.ts",
+    "test": "vitest run",
+    "seed:qdrant": "ts-node -r tsconfig-paths/register src/common/mock/seed-qdrant.ts"
+  },
+  "dependencies": {
+    "@langchain/community": "^1.1.29",
+    "@langchain/core": "^1.2.0",
+    "@langchain/google-genai": "^2.2.0",
+    "@langchain/langgraph": "^1.4.4",
+    "@langchain/openai": "^1.5.0",
+    "@nestjs/axios": "^4.0.1",
+    "@nestjs/common": "^11.1.27",
+    "@nestjs/config": "^4.0.4",
+    "@nestjs/core": "^11.1.27",
+    "@nestjs/platform-express": "^11.1.27",
+    "@nestjs/swagger": "^11.4.4",
+    "@nestjs/terminus": "^11.1.1",
+    "@prisma/client": "^6.19.3",
+    "@qdrant/js-client-rest": "^1.18.0",
+    "axios": "^1.18.0",
+    "bullmq": "^5.79.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "ioredis": "^5.11.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.23",
+    "@nestjs/schematics": "^11.1.0",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.9.3",
+    "@types/supertest": "^7.2.0",
+    "@vitest/coverage-v8": "^4.1.9",
+    "prisma": "^6.19.3",
+    "supertest": "^7.2.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
+  }
+}
