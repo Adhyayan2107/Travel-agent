@@ -51,6 +51,9 @@ export class SseService {
   /** Map of sessionId → EventEmitter channel */
   private readonly channels = new Map<string, EventEmitter>();
 
+  /** Stores the final event for sessions that completed before a client subscribed */
+  private readonly completedSessions = new Map<string, SseEvent>();
+
   // ── Emit API (called by graph nodes) ───────────────────────────────────────
 
   /**
@@ -80,8 +83,10 @@ export class SseService {
 
     // Auto-cleanup after terminal events
     if (type === "graph:complete" || type === "graph:error") {
-      // Small delay so the client can receive the final frame before the channel closes
+      this.completedSessions.set(sessionId, event);
       setTimeout(() => this.destroyChannel(sessionId), 500);
+      // Remove from completed cache after 10 minutes
+      setTimeout(() => this.completedSessions.delete(sessionId), 10 * 60 * 1000);
     }
   }
 
@@ -96,6 +101,14 @@ export class SseService {
    * @returns           Unsubscribe function — call on client disconnect.
    */
   subscribe(sessionId: string, onEvent: (event: SseEvent) => void): () => void {
+    // If session already completed before client connected, replay the final event immediately
+    const completed = this.completedSessions.get(sessionId);
+    if (completed) {
+      this.logger.log(`SSE late subscriber for [${sessionId}] — replaying ${completed.type}`);
+      setTimeout(() => onEvent(completed), 50);
+      return () => {};
+    }
+
     // Create channel if not yet created (graph may not have started emitting)
     if (!this.channels.has(sessionId)) {
       this.channels.set(sessionId, new EventEmitter());
